@@ -1,0 +1,89 @@
+.indexPage{
+    height: 100%;
+    padding: 0 0.8rem;
+}
+.searchView{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #F1F3F8;
+    width: 100%;
+    padding: 0.4rem 0;
+    z-index: 5;
+}
+.searchInput{
+    width: calc(100% - 1.6rem);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    margin: 0 auto;
+    border:1px solid rgba(229,229,229,1);
+    border-radius:6px;
+    padding: 0.2rem 0;
+}
+.searchInputControl{
+    flex: 1;
+    font-size: 0.6rem;
+    padding-left: 0.6rem;
+    height: 0.88rem;
+}
+.searchImg{
+    width: 0.6rem;
+    height: 0.6rem;
+    margin-right: 0.5rem;
+}
+.place-holder{
+    color: #CCCCCC;
+}
+.listView{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2.1rem;
+}
+.itemView{
+    border:1px solid rgba(229,229,229,1);
+    border-radius:12px;
+    margin-top: 0.6rem;
+    width: calc(100% - 1.3rem);
+    padding: 0.6rem 0.5rem 0.6rem 0.8rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+}
+.itemLeft{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+.title{
+    font-family: 'PingFang-SC-Bold';
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: #333333;
+    margin-bottom: 0.6rem;
+}
+.text{
+    font-size: 0.6rem;
+    color: #666666;
+}
+.itemRight{
+    margin-top: 0.3rem;
+}
+.toDetail{
+    width: 0.25rem;
+    height: 1.2rem;
+}
+.viewBgi{
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    width: 5rem;
+    height: 4rem;
+}
