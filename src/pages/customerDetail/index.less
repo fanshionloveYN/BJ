@@ -1,4 +1,38 @@
-.indexPage{
+.customerDetailPage{
     height: 100%;
-    padding: 1rem 0.7rem;
+    // padding: 1rem 0.7rem;
+    .detailHeader{
+        width: 100%;
+        padding: 1rem 0.7rem;
+        display: flex;
+        flex-direction: row;
+    }
+    .spaceLine{
+        width: 100%;
+        height: 0.5rem;
+        background-color: #F1F3F8;
+    }
+    .customerInfo{
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        .name{
+            border-left: 0.2rem solid #6480EF;
+            text-indent: 0.8rem;
+            color: #333333;
+            font-size: 0.7rem;
+            height: 0.7rem;
+            line-height: 0.7rem;
+            font-weight: bold;
+        }
+        .info{
+            text-indent: 1rem;
+            color: #666666;
+            font-size: 0.6rem;
+        }
+    }
+    .customerDetailIcon{
+        width: 2rem;
+        height: 2rem;
+    }
 }
