@@ -52,7 +52,7 @@ export default class Index extends Component {
             <Text className='mainText'>合同信息</Text>
             <Image src={arrow_right} className='arrow_right'></Image>
           </View>
-          <View className='layoutView'>
+          <View className='layoutView' onClick={() => {this.toPage('customerList')}}>
             <Image src={bgImg_green} className='mainImg'></Image>
             <Image src={circular_user} className='leftImg'></Image>
             <Text className='mainText'>客户信息</Text>

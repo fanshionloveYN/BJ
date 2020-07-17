@@ -1,22 +1,23 @@
 export default {
   pages: [
-    'pages/index/index', // 首页 信息页
+    'pages/index/index', // 首页 信息页 OK!!!
     'pages/money/index', // 资产信息页
     'pages/houseList/index', // 房屋列表页
     'pages/houseDetail/index', // 房屋详情页
     'pages/map/index', // 地图分布页
     'pages/contractList/index', // 合同列表页
     'pages/contractDetail/index', // 合同详情页
-    'pages/customerList/index', // 客户列表页
-    'pages/customerDetail/index', // 客户详情页
-    'pages/toDoList/index', // 代办列表页
+    'pages/customerList/index', // 客户列表页 OK!!!
+    'pages/customerDetail/index', // 客户详情页 ing!!!
+    'pages/toDoList/index', // 代办列表页 OK!!!
     'pages/toDoDetail/index', // 代办详情页
-    'pages/chartList/index', // 图表页
-    'pages/chartDetail/index', // 图表详情页
-    'pages/my/index', // 我的页
-    'pages/login/index', // 登录页 
-    'pages/about/index', // 关于页
-    'pages/quit/index', // 退出页
+    'pages/chartList/index', // 图表页 OK!!!
+    'pages/chartDetail/index', // 图表详情页 ing!!!
+    'pages/my/index', // 我的页 OK!!!
+    'pages/login/index', // 登录页  OK!!!
+    'pages/about/index', // 关于页 OK!!!
+    'pages/admin/index', // 账号管理页 OK!!!
+    'pages/quit/index', // 退出页 OK!!!
   ],
   window: {
     backgroundTextStyle: 'light',

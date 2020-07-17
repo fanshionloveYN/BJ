@@ -22,24 +22,30 @@ export default class Index extends Component {
 
   componentDidHide () { }
 
+  toLogin(path) {
+    Taro.navigateTo({ url: `/pages/${path}/index` })
+  }
+
+
+
   render () {
     const json = [
       {
         icon: aboutIcon,
         name: '关于',
-        router: 'pages/about/index'
+        router: 'about'
       },
       {
         icon: accountIcon,
         name: '账号管理',
-        router: 'pages/acount/index'
+        router: 'admin'
       }
     ]
     return (
-      <View className='indexPage'>
+      <View className='myPage'>
         <View className='header'>
           <Image src={myPageBg1} className='myPageBg1'></Image>
-          <View className='userInfoView'>
+          <View className='userInfoView' onClick={()=> this.toLogin('login')}>
             <Image src={avatar} className='avatar'></Image>
             <View className='toLogin'>您好，请登录</View>
             <Image src={arrow_right2} className='arrow_right2'></Image>
@@ -49,7 +55,7 @@ export default class Index extends Component {
         {
             json.length > 0 && json.map((item, index) => {
               return (
-                <View className='listView'>
+                <View className='optionsView' onClick={()=> this.toLogin(item.router)}>
                   <Image src={item.icon} className='icon'></Image>
                   <View className='name'>{item.name}</View>
                   <Image src={arrow_right3} className='arrow_right3'></Image>
