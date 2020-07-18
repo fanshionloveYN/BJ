@@ -8,7 +8,7 @@ export default {
     'pages/contractList/index', // 合同列表页
     'pages/contractDetail/index', // 合同详情页
     'pages/customerList/index', // 客户列表页 OK!!!
-    'pages/customerDetail/index', // 客户详情页 ing!!!
+    'pages/customerDetail/index', // 客户详情页 OK!!!
     'pages/toDoList/index', // 代办列表页 OK!!!
     'pages/toDoDetail/index', // 代办详情页
     'pages/chartList/index', // 图表页 OK!!!

@@ -31,8 +31,18 @@ export default class Index extends Component {
           <Image src={customerDetailIcon} className='customerDetailIcon'></Image>
         </View>
         <View className='spaceLine'></View>
-        <View className=''>
-          
+        <View className='customerDetail'>
+          <View className='customerDetailView'>
+            <View className='customerDetailHeader'>租赁合同</View>
+            <View className='customerInfo'>
+              <View className='name' style="border:0;margin-left:0.2rem;">编号：LHZC-2019-18</View>
+              <View className='info'>客户：上海樱雅咖啡有限公司</View>
+              <View className='info'>面积：103.45平方米</View>
+              <View className='info'>年租金：116200元</View>
+              <View className='info'>开始时间：2019-12-10</View>
+              <View className='info'>结束时间：2020-12-09</View>
+            </View>
+          </View>
         </View>
       </View>
     )
