@@ -20,13 +20,7 @@ export default class Index extends Component {
 
   render () {
     return (
-      <View className='indexPage'>
-        <View className='searchView'>
-          <View className='searchInput'>
-            <Input></Input>
-            <Image src={search}></Image>
-          </View>
-        </View>
+      <View className='customerDetailPage'>
       </View>
     )
   }

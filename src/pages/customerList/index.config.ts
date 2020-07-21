@@ -1,3 +1,4 @@
 export default {
-  navigationBarTitleText: '我的代办'
+  navigationBarTitleText: '客户列表'
 }
+ 

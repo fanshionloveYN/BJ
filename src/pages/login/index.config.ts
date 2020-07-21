@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '我的代办'
+  navigationBarTitleText: '请登录'
 }
