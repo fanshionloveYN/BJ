@@ -3,6 +3,7 @@ import { View, Text, Image, Input } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import loginNameIcon from '../../images/loginNameIcon.png'
 import loginPasswordIcon from '../../images/loginPasswordIcon.png'
+import { post } from '../../utils/request'
 import './index.less'
 
 export default class Index extends Component {
@@ -17,6 +18,31 @@ export default class Index extends Component {
   componentDidShow () { }
 
   componentDidHide () { }
+
+  appLogin () {
+    post('http://180.168.137.3:8081/admin-api/applogin', {
+      username: 'app001',
+      password: '123456',
+      _t: Date.parse(new Date())
+    }).then(res => {
+      console.log(res)
+    })
+
+
+    // Taro.request({
+    //   url: 'http://180.168.137.3:8081/admin-api/applogin',
+    //   method: 'POST',
+    //   data: {
+        
+    //   },
+    //   dataType: 'json',
+    //   header: {
+    //     'content-type': 'application/json'
+    //   }    
+    // }).then(function (res) {
+    //   console.log(res)
+    // })
+  }
 
   render () {
     return (
@@ -33,7 +59,7 @@ export default class Index extends Component {
             <Input className='loginInp' ></Input>
           </View>
         </View>
-        <View className='loginBtn'>立即登录</View>
+        <View className='loginBtn' onClick={()=> this.appLogin()}>立即登录</View>
       </View>
     )
   }
