@@ -15,20 +15,22 @@ export default class Index extends Component {
     super(props)
 
     this.state = {
-      userInfo: {}
+      userInfo: ''
     }
   }
 
   componentWillMount () { 
-    this.getLoginStatus()
   }
 
   componentDidMount () { 
+    
   }
 
   componentWillUnmount () { }
 
-  componentDidShow () { }
+  componentDidShow () {
+    this.getLoginStatus()
+  }
 
   componentDidHide () { }
 
@@ -39,7 +41,11 @@ export default class Index extends Component {
   }
 
   toLogin(path) {
-    if (this.state.userInfo.length < 1) {
+    console.log(this.state.userInfo)
+    console.log(this.state.userInfo.length)
+    if (this.state.userInfo.length > 0 && path != 'login') {
+      Taro.navigateTo({ url: `/pages/${path}/index` })
+    } else if (this.state.userInfo.length == 0){
       Taro.navigateTo({ url: `/pages/${path}/index` })
     }
   }

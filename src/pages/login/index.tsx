@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, Image, Input } from '@tarojs/components'
-import Taro from '@tarojs/taro'
+import Taro, { getCurrentPages } from '@tarojs/taro'
 import loginNameIcon from '../../images/loginNameIcon.png'
 import loginPasswordIcon from '../../images/loginPasswordIcon.png'
 import { post } from '../../utils/request'
