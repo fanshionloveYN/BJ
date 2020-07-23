@@ -1,7 +1,8 @@
 export default {
   pages: [
     'pages/index/index', // 首页 信息页 OK!!!
-    'pages/money/index', // 资产信息页
+    'pages/propertyList/index', // 资产信息页
+    'pages/propertyDetail/index', // 资产详情页
     'pages/houseList/index', // 房屋列表页
     'pages/houseDetail/index', // 房屋详情页
     'pages/map/index', // 地图分布页
