@@ -33,8 +33,9 @@ export const request = (url = '', data = {}, header = DefaultOptions.header, met
   }).catch(err => {
     return Promise.reject({ errno: 902, errmsg: '网络请求错误', data: err })
   }).then(res => {
+    console.log(res)
     if (res.statusCode == '200') {
-      if (res.data.errno == 0) {
+      if (res.data.code == 0) {
         return res.data
       } else {
         return Promise.reject(res.data)

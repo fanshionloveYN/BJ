@@ -11,10 +11,20 @@ import './index.less'
 
 export default class Index extends Component {
 
-  componentWillMount () { 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      userInfo: {}
+    }
   }
 
-  componentDidMount () { }
+  componentWillMount () { 
+    this.getLoginStatus()
+  }
+
+  componentDidMount () { 
+  }
 
   componentWillUnmount () { }
 
@@ -22,11 +32,17 @@ export default class Index extends Component {
 
   componentDidHide () { }
 
-  toLogin(path) {
-    Taro.navigateTo({ url: `/pages/${path}/index` })
+  getLoginStatus () {
+    if (localStorage.getItem('userInfo')) {
+      this.setState({ userInfo: localStorage.getItem('userInfo')})
+    }
   }
 
-
+  toLogin(path) {
+    if (this.state.userInfo.length < 1) {
+      Taro.navigateTo({ url: `/pages/${path}/index` })
+    }
+  }
 
   render () {
     const json = [
@@ -41,13 +57,15 @@ export default class Index extends Component {
         router: 'admin'
       }
     ]
+    const { userInfo } = this.state
+    const userName = userInfo.length > 0 ? JSON.parse(userInfo).data.realName : '您好，请登录'
     return (
       <View className='myPage'>
         <View className='header'>
           <Image src={myPageBg1} className='myPageBg1'></Image>
           <View className='userInfoView' onClick={()=> this.toLogin('login')}>
             <Image src={avatar} className='avatar'></Image>
-            <View className='toLogin'>您好，请登录</View>
+            <View className='toLogin'>{userName}</View>
             <Image src={arrow_right2} className='arrow_right2'></Image>
           </View>
         </View>
@@ -55,7 +73,7 @@ export default class Index extends Component {
         {
             json.length > 0 && json.map((item, index) => {
               return (
-                <View className='optionsView' onClick={()=> this.toLogin(item.router)}>
+                <View className='optionsView' key={index} onClick={()=> this.toLogin(item.router)}>
                   <Image src={item.icon} className='icon'></Image>
                   <View className='name'>{item.name}</View>
                   <Image src={arrow_right3} className='arrow_right3'></Image>

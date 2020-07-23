@@ -20,28 +20,16 @@ export default class Index extends Component {
   componentDidHide () { }
 
   appLogin () {
-    post('http://180.168.137.3:8081/admin-api/applogin', {
+    post('/admin-api/applogin', {
       username: 'app001',
       password: '123456',
       _t: Date.parse(new Date())
     }).then(res => {
-      console.log(res)
+      Taro.setStorageSync('userInfo', res.data)
+      Taro.navigateBack({
+        delta: 1 // 返回上一级页面。
+      });
     })
-
-
-    // Taro.request({
-    //   url: 'http://180.168.137.3:8081/admin-api/applogin',
-    //   method: 'POST',
-    //   data: {
-        
-    //   },
-    //   dataType: 'json',
-    //   header: {
-    //     'content-type': 'application/json'
-    //   }    
-    // }).then(function (res) {
-    //   console.log(res)
-    // })
   }
 
   render () {
