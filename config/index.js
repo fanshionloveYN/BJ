@@ -58,6 +58,16 @@ const config = {
           generateScopedName: '[name]__[local]___[hash:base64:5]'
         }
       }
+    },
+    devServer: {
+      host: 'localhost',
+      port: 10086,
+      proxy: {
+        '/admin-api': {
+          target: 'http://180.168.137.3:8081',
+          changeOrigin: true
+        }
+      }
     }
   }
 }
