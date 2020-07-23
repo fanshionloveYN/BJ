@@ -34,7 +34,7 @@ export default class Index extends Component {
     return (
       <View className='indexPage'>
         <View className='mainView'>
-          <View className='layoutView' onClick={() => {this.toPage('money')}}>
+          <View className='layoutView' onClick={() => {this.toPage('propertyList')}}>
             <Image src={bgImg_blue} className='mainImg'></Image>
             <Image src={circular_house} className='leftImg'></Image>
             <Text className='mainText'>资产信息</Text>
