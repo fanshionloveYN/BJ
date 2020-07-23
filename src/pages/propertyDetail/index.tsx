@@ -200,38 +200,46 @@ export default class Index extends Component {
         <View className='spaceLine'></View>
         <View className='propertyDetail'>
           <View className='propertyDetailView'>
-	  <View className='propertyDetailHeader'>房屋单元</View>
-	  {
-            json.data.house_units.length > 0 && json.data.house_units.map((item, index) => {
-	    return(
-	    <View className='propertyInfo' key={index}>
-              <View className='name' style="border:0;margin-left:0.2rem;">位置：{item.address}</View>
-              <View className='info'>编号：{item.house_code}</View>
-              <View className='info'>面积：{item.acreage}平方米</View>
-	      <View className="splitLine"></View>
-            </View>
-	    )
-	    })
-	   }
+	          <View className='propertyDetailHeader'>房屋单元</View>
+            {
+              json.data.house_units.length > 0 && json.data.house_units.map((item, index) => {
+                return(
+                  <View className='propertyInfo' key={index}>
+                    <View className='name' style="border:0;margin-left:0.2rem;">位置：{item.address}</View>
+                    <View className='info'>编号：{item.house_code}</View>
+                    <View className='info'>面积：{item.acreage}平方米</View>
+                    {
+                      index + 1 !== json.data.house_units.length &&
+                      <View className="splitLine"></View>
+                    }
+                  </View>
+                )
+              })
+            }
+          </View>
+          <View className='propertyDetailView'>
             <View className='propertyDetailHeader'>租赁合同</View>
-	    {
+	          {
             json.data.house_units.length > 0 && json.data.house_units.map((item, index) => {
-	    return(
-            <View className='propertyInfo' key={index}>
-              <View className='propertyInfo' key={index}>
-              <View className='name' style="border:0;margin-left:0.2rem;">编号：{item.rent_unit_code}</View>
-              <View className='info'>客户：{item.use_people}</View>
-              <View className='info'>地址：{item.address}</View>
-	      <View className='info'>面积：{item.acreage}平方米</View>
-	      <View className='info'>年租金：{item.room_type_code}元</View>
-	      <View className='info'>开始：{item.min_price}</View>
-	      <View className='info'>结束：{item.max_price}</View>
-	      <View className="splitLine"></View>
-            </View>
-            </View>
-	    )
-	    })
-	   }
+              return(
+                <View className='propertyInfo' key={index}>
+                  <View className='propertyInfo' key={index}>
+                    <View className='name' style="border:0;margin-left:0.2rem;">编号：{item.rent_unit_code}</View>
+                    <View className='info'>客户：{item.use_people}</View>
+                    <View className='info'>地址：{item.address}</View>
+                    <View className='info'>面积：{item.acreage}平方米</View>
+                    <View className='info'>年租金：{item.room_type_code}元</View>
+                    <View className='info'>开始：{item.min_price}</View>
+                    <View className='info'>结束：{item.max_price}</View>
+                    {
+                      index + 1 !== json.data.house_units.length &&
+                      <View className="splitLine"></View>
+                    }
+                  </View>
+                </View>
+              )
+            })
+          }
           </View>
         </View>
       </View>
