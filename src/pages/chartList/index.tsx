@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+﻿import React, { Component } from 'react'
 import { View, Text, Image, Input, Button } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import charListImg1 from '../../images/charListImg1.png'
@@ -20,6 +20,10 @@ export default class Index extends Component {
   componentDidShow () { }
 
   componentDidHide () { }
+  
+  toPage(path) {
+    Taro.navigateTo({ url: `/pages/${path}/index` })
+  }
 
   render () {
     return (
@@ -27,7 +31,7 @@ export default class Index extends Component {
         <View className="card">
           <Button size='mini' type='default' className='btn'>资产</Button>
           <View className="cardInner">
-            <View className="innerItem">
+            <View className="innerItem" onClick={()=> this.toPage('chartDetail')}>
               <Image src={charListImg1} className="innerIcon"></Image>
               行政区域
             </View>
