@@ -20,7 +20,7 @@ export default class Index extends Component {
   componentDidHide () { }
 
   appLogin () {
-    post('http://180.168.137.3:8081/admin-api/applogin', {
+    post('/admin-api/applogin', {
       username: 'app001',
       password: '123456',
       _t: Date.parse(new Date())
