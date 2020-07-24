@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import { View, Text, Image, Input } from '@tarojs/components'
 import Taro from '@tarojs/taro'
@@ -28,3 +29,4 @@ export default class Index extends Component {
     )
   }
 }
+
