@@ -5,22 +5,42 @@ import './index.less'
 
 export default class Index extends Component {
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      userInfo: ''
+    }
+  }	
+
   componentWillMount () { 
+	
   }
 
   componentDidMount () { }
 
   componentWillUnmount () { }
 
-  componentDidShow () { }
+  componentDidShow () { 
+	this.getLoginStatus()
+  }
 
   componentDidHide () { }
 
+  getLoginStatus () {
+    if (localStorage.getItem('userInfo')) {
+      this.setState({ userInfo: localStorage.getItem('userInfo')})
+    }
+  }
+
+
   render () {
+    const { userInfo } = this.state
+    const userName = userInfo.length > 0 ? JSON.parse(userInfo).data.realName : '请登录'
     return (
       <View className='aboutPage'>
         <View className='aboutView'>
-          <View className='companyName'>您好，admin</View>
+          <View className='companyName'>您好，{userName}</View>
           <View className='projectName'>您当前是登录状态</View>
           <View className='splitLine'></View>
           <View className='signOut'>退出</View>

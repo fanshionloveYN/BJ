@@ -40,13 +40,13 @@ export default class Index extends Component {
             <Text className='mainText'>资产信息</Text>
             <Image src={arrow_right} className='arrow_right'></Image>
           </View>
-          <View className='layoutView'>
+          <View className='layoutView' onClick={() => {this.toPage('houseList')}}>
             <Image src={bgImg_purple} className='mainImg'></Image>
             <Image src={circular_position} className='leftImg'></Image>
             <Text className='mainText'>房屋</Text>
             <Image src={arrow_right} className='arrow_right'></Image>
           </View>
-          <View className='layoutView'>
+          <View className='layoutView' onClick={() => {this.toPage('contractList')}}>
             <Image src={bgImg_yellow} className='mainImg'></Image>
             <Image src={circular_content} className='leftImg'></Image>
             <Text className='mainText'>合同信息</Text>

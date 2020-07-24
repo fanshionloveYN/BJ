@@ -40,6 +40,8 @@
     "@tarojs/runtime": "3.0.2",
     "@tarojs/taro": "3.0.2",
     "@tarojs/react": "3.0.2",
+    "echarts": "^4.8.0",
+    "echarts-for-react": "^2.0.16",
     "react-dom": "^16.10.0",
     "react": "^16.10.0"
   },

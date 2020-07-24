@@ -2,28 +2,54 @@ import React, { Component } from 'react'
 import { View, Text, Image, Input } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import search from '../../images/search.png'
-import toDetail from '../../images/toDetail.png'
 import listViewBg from '../../images/listViewBg.png'
+import toDetail from '../../images/toDetail.png'
+import { get } from '../../utils/request'
 import './index.less'
 
 export default class Index extends Component {
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      dataJson:[],
+      total:0
+    }
+  }
+
   componentWillMount () { 
+	this.getData()
   }
 
   componentDidMount () { }
 
   componentWillUnmount () { }
 
-  componentDidShow () { }
+  componentDidShow () {
+	
+  }
 
   componentDidHide () { }
 
   goToDetail () {
-    Taro.navigateTo({ url: `/pages/propertyDetail/index` })
+    Taro.navigateTo({ url: `/pages/propertyDetail/index?id=1215924727332249720` })
+  }
+
+  getData() {
+    get('/admin-api/builder/data/page/reis_house', {
+      page:1,
+      limit:20,
+      token: JSON.parse(localStorage.getItem('userInfo')).data.token
+    }).then(res => {
+	console.log(res.data.list)
+	this.setState({ dataJson: res.data.list,total:res.data.total})
+    })
   }
 
   render () {
+    const { dataJson , total} = this.state
+    //console.log('ja::::',dataJson.length)
     const json = [
             {
                 "id":"1245218949231042562",
@@ -334,7 +360,7 @@ export default class Index extends Component {
         </View>
         <View className='listView'>
           {
-            json.length > 0 && json.map((item, index) => {
+            dataJson.length > 0 && dataJson.map((item, index) => {
               return (
                 <View className='itemView' key={index}>
                   <View className='itemLeft'>

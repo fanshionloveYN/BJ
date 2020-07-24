@@ -1,4 +1,4 @@
 export default {
-  navigationBarTitleText: '客户列表'
+  navigationBarTitleText: '资产列表'
 }
  

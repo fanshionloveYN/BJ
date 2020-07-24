@@ -2,11 +2,20 @@ import React, { Component } from 'react'
 import { View, Text, Image, Input } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import propertyDetailIcon from '../../images/customerDetailIcon.png'
+import { get } from '../../utils/request'
 import './index.less'
 
 export default class Index extends Component {
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      jsonAll:''
+    }
+  }
   componentWillMount () { 
+	this.getData()
   }
 
   componentDidMount () { }
@@ -17,7 +26,29 @@ export default class Index extends Component {
 
   componentDidHide () { }
 
+  getData() {
+    get('/admin-api/builder/data/reis_house/1215924727332249720', {
+      token: JSON.parse(localStorage.getItem('userInfo')).data.token
+    }).then(res => {
+	console.log('house::::',res.data)
+    })
+
+    get('/admin-api/builder/data/list/reis_rent_unit?house_id.eq=1215924727332249720', {
+      token: JSON.parse(localStorage.getItem('userInfo')).data.token
+    }).then(res => {
+	console.log('rent_unit::::',res.data)
+    })
+
+    get('/admin-api/builder/data/list/reis_contract?status_code=02&house_id.eq=1215924727332249720', {
+      token: JSON.parse(localStorage.getItem('userInfo')).data.token
+    }).then(res => {
+	console.log('contract::::',res.data)
+    })
+  }
+
+
   render () {
+
   const json = {
     "code":0,
     "msg":"success",
