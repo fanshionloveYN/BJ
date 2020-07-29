@@ -30,7 +30,8 @@ export default class Index extends Component {
 
   componentDidHide () { }
 
-  goToDetail () {
+  goToDetail (obj) {
+    tmsg.id = obj
     Taro.navigateTo({ url: `/pages/customerDetail/index` })
   }
 
@@ -47,26 +48,6 @@ export default class Index extends Component {
 
   render () {
     const { dataJson , total} = this.state
-    const json = [
-      {
-        name: '中信建投证券股份有限公司上海分公司',
-        number: 'ZDGASDLJO',
-        cardId: '20301020202012345670 ',
-        grade: 'A',
-      },
-      {
-        name: '中信建投证券股份有限公司上海分公司',
-        number: 'ZDGASDLJO',
-        cardId: '20301020202012345670 ',
-        grade: 'A',
-      },
-      {
-        name: '中信建投证券股份有限公司上海分公司',
-        number: 'ZDGASDLJO',
-        cardId: '20301020202012345670 ',
-        grade: 'A',
-      }
-    ]
     return (
       <View className='customerListPage'>
         <View className='searchView'>
@@ -87,7 +68,7 @@ export default class Index extends Component {
                     <Text className='text'>评级：{item.star}</Text>
                   </View>
                   <View className='itemRight'>
-                    <Image src={toDetail} className='toDetail' onClick={()=> this.goToDetail()}></Image>
+                    <Image src={toDetail} className='toDetail' onClick={()=> this.goToDetail(item.id)}></Image>
                   </View>
                   <Image src={listViewBg} className='viewBgi'></Image>
                 </View>

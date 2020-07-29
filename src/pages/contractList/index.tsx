@@ -30,7 +30,8 @@ export default class Index extends Component {
 
   componentDidHide () { }
 
-  goToDetail () {
+  goToDetail (obj) {
+    tmsg.id = obj
     Taro.navigateTo({ url: `/pages/contractDetail/index` })
   }
 
@@ -373,7 +374,7 @@ export default class Index extends Component {
 		    <Text className='text'>结束：{item.end_date}</Text>
                   </View>
                   <View className='itemRight'>
-                    <Image src={toDetail} className='toDetail' onClick={()=> this.goToDetail()}></Image>
+                    <Image src={toDetail} className='toDetail' onClick={()=> this.goToDetail(item.id)}></Image>
                   </View>
                   <Image src={listViewBg} className='viewBgi'></Image>
                 </View>

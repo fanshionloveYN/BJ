@@ -15,6 +15,7 @@ export default class Index extends Component {
       dataJson:[],
       total:0
     }
+
   }
   componentWillMount () { 
 	this.getData()
@@ -30,6 +31,7 @@ export default class Index extends Component {
 
   componentDidHide () { }
 
+
   getData() {
     get('/admin-api/builder/data/page/reis_house?page=undefined&longitude.ge=121.50249194165039&longitude.le=121.54197405834961&latitude.ge=31.27878811611185&latitude.le=31.33276215359025',
     {
@@ -43,7 +45,7 @@ export default class Index extends Component {
 init() {
 	var center = new qq.maps.LatLng(31.27878811611185,121.50249194165039);
 
-	var map = new qq.maps.Map(document.getElementById("container"), {
+	var map = new qq.maps.Map(document.getElementById("container_mine"), {
 		// 地图的中心地理坐标。
 		center: center,
 		zoom:12,
@@ -62,7 +64,7 @@ init() {
         console.log('dataJson',dataJson)
 
     return (
-      <View id='container' className='map'></View>
+      <View id='container_mine' className='map'></View>
     )
   }
 }

@@ -11,10 +11,13 @@ export default class Index extends Component {
     super(props)
 
     this.state = {
-      jsonAll:''
+      mainjson:'',
+      housejson:'',
+      conjson:''
     }
   }
   componentWillMount () { 
+        console.log('params',tmsg)
 	this.getData()
   }
 
@@ -27,27 +30,33 @@ export default class Index extends Component {
   componentDidHide () { }
 
   getData() {
-    get('/admin-api/builder/data/reis_house/1215924727332249720', {
+    let that = this
+    let id = tmsg.id
+    get('/admin-api/builder/data/reis_house/'+id, {
       token: JSON.parse(localStorage.getItem('userInfo')).data.token
     }).then(res => {
-	console.log('house::::',res.data)
+	//console.log('house::::',res.data)
+	that.setState({ mainjson: res.data})
     })
 
-    get('/admin-api/builder/data/list/reis_rent_unit?house_id.eq=1215924727332249720', {
+    get('/admin-api/builder/data/list/reis_rent_unit?house_id.eq='+id, {
       token: JSON.parse(localStorage.getItem('userInfo')).data.token
     }).then(res => {
-	console.log('rent_unit::::',res.data)
+	//console.log('rent_unit::::',res.data)
+	that.setState({ housejson: res.data})
     })
 
-    get('/admin-api/builder/data/list/reis_contract?status_code=02&house_id.eq=1215924727332249720', {
+    get('/admin-api/builder/data/list/reis_contract?status_code=02&house_id.eq='+id, {
       token: JSON.parse(localStorage.getItem('userInfo')).data.token
     }).then(res => {
-	console.log('contract::::',res.data)
+	//console.log('contract::::',res.data)
+	that.setState({ conjson: res.data})
     })
   }
 
 
   render () {
+  const { mainjson , housejson ,conjson} = this.state
 
   const json = {
     "code":0,
@@ -217,14 +226,17 @@ export default class Index extends Component {
         ]
     }
 }
+    console.log('mainjson::',mainjson)
+    console.log('housejson::',housejson)
+    console.log('conjson::',conjson)
     return (
       <View className='propertyDetailPage'>
         <View className='spaceLine'></View>
         <View className='detailHeader'>
           <View className='propertyInfo'>
-            <View className='name'>地址：{json.data.address}</View>
-            <View className='info'>编号：{json.data.house_code}</View>
-            <View className='info'>面积：{json.data.acreage}</View>
+            <View className='name'>地址：{mainjson.address}</View>
+            <View className='info'>编号：{mainjson.house_code}</View>
+            <View className='info'>面积：{mainjson.acreage}平方米</View>
           </View>
           <Image src={propertyDetailIcon} className='propertyDetailIcon'></Image>
         </View>
@@ -233,7 +245,7 @@ export default class Index extends Component {
           <View className='propertyDetailView'>
 	          <View className='propertyDetailHeader'>房屋单元</View>
             {
-              json.data.house_units.length > 0 && json.data.house_units.map((item, index) => {
+              housejson.length > 0 && housejson.map((item, index) => {
                 return(
                   <View className='propertyInfo' key={index}>
                     <View className='name' style="border:0;margin-left:0.2rem;">位置：{item.address}</View>
@@ -248,20 +260,21 @@ export default class Index extends Component {
               })
             }
           </View>
+	  </View>
           <View className='propertyDetailView'>
             <View className='propertyDetailHeader'>租赁合同</View>
 	          {
-            json.data.house_units.length > 0 && json.data.house_units.map((item, index) => {
+            conjson.length > 0 && conjson.map((item, index) => {
               return(
                 <View className='propertyInfo' key={index}>
                   <View className='propertyInfo' key={index}>
-                    <View className='name' style="border:0;margin-left:0.2rem;">编号：{item.rent_unit_code}</View>
-                    <View className='info'>客户：{item.use_people}</View>
+                    <View className='name' style="border:0;margin-left:0.2rem;">编号：{item.contract_code}</View>
+                    <View className='info'>客户：{item.customer_name}</View>
                     <View className='info'>地址：{item.address}</View>
                     <View className='info'>面积：{item.acreage}平方米</View>
-                    <View className='info'>年租金：{item.room_type_code}元</View>
-                    <View className='info'>开始：{item.min_price}</View>
-                    <View className='info'>结束：{item.max_price}</View>
+                    <View className='info'>年租金：{item.annual_rent}元</View>
+                    <View className='info'>开始：{item.start_date}</View>
+                    <View className='info'>结束：{item.end_date}</View>
                     {
                       index + 1 !== json.data.house_units.length &&
                       <View className="splitLine"></View>
@@ -271,7 +284,7 @@ export default class Index extends Component {
               )
             })
           }
-          </View>
+          
         </View>
       </View>
     )

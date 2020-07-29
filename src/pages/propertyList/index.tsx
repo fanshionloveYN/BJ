@@ -32,8 +32,10 @@ export default class Index extends Component {
 
   componentDidHide () { }
 
-  goToDetail () {
-    Taro.navigateTo({ url: `/pages/propertyDetail/index?id=1215924727332249720` })
+  goToDetail (obj) {
+    tmsg.id = obj
+    //Taro.navigateTo({ url: `/pages/propertyDetail/index?id=`+obj })
+    Taro.navigateTo({ url: `/pages/propertyDetail/index`})
   }
 
   getData() {
@@ -369,7 +371,7 @@ export default class Index extends Component {
                     <Text className='text'>面积：{item.acreage}</Text>
                   </View>
                   <View className='itemRight'>
-                    <Image src={toDetail} className='toDetail' onClick={()=> this.goToDetail()}></Image>
+                    <Image src={toDetail} className='toDetail' onClick={()=> this.goToDetail(item.id)}></Image>
                   </View>
                   <Image src={listViewBg} className='viewBgi'></Image>
                 </View>

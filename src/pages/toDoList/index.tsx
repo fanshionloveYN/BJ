@@ -4,11 +4,22 @@ import Taro from '@tarojs/taro'
 import search from '../../images/search.png'
 import toDetail from '../../images/toDetail.png'
 import listViewBg from '../../images/listViewBg.png'
+import { get } from '../../utils/request'
 import './index.less'
 
 export default class Index extends Component {
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      dataJson:[],
+      total:0
+    }
+  }
+
   componentWillMount () { 
+	this.getData()
   }
 
   componentDidMount () { }
@@ -19,7 +30,24 @@ export default class Index extends Component {
 
   componentDidHide () { }
 
+  goToDetail (taskId,processInstanceId) {
+    tmsg.taskId = taskId
+    tmsg.processInstanceId = processInstanceId
+    Taro.navigateTo({ url: `/pages/toDoDetail/index`})
+  }
+
+  getData() {
+    get('/admin-api/act/task/myToDoTaskPage', {
+      page:1,
+      token: JSON.parse(localStorage.getItem('userInfo')).data.token
+    }).then(res => {
+	console.log(res.data.list)
+	this.setState({ dataJson: res.data.list,total:res.data.total})
+    })
+  }
+
   render () {
+    const { dataJson , total} = this.state
     const json = [
       {
         type: '租赁合同审批',
@@ -43,29 +71,29 @@ export default class Index extends Component {
         beginDate: '2020-05-06 15:31:30'
       }
     ]
-    console.log(json)
+
     return (
       <View className='indexPage'>
         <View className='searchView'>
           <View className='searchInput'>
-            <Input placeholder='请输入代办名称' className='searchInputControl' placeholder-class="place-holder"></Input>
+            <Input placeholder='请输入待办名称' className='searchInputControl' placeholder-class="place-holder"></Input>
             <Image src={search} className='searchImg'></Image>
           </View>
         </View>
         <View className='listView'>
           {
-            json.length > 0 && json.map((item, index) => {
+            dataJson.length > 0 && dataJson.map((item, index) => {
               return (
                 <View className='itemView' key={index}>
                   <View className='itemLeft'>
-                    <Text className='title'>类型：{item.type}</Text>
-                    <Text className='text'>标题：{item.title}</Text>
-                    <Text className='text'>创建时间：{item.createDate}</Text>
-                    <Text className='text'>当前步骤：{item.current}</Text>
-                    <Text className='text'>开始时间：{item.beginDate}</Text>
+                    <Text className='title'>类型：{item.processDefinitionName}</Text>
+                    <Text className='text'>标题：{item.bpm_title}</Text>
+                    <Text className='text'>创建时间：{item.createTime}</Text>
+                    <Text className='text'>当前步骤：{item.taskName}</Text>
+                    <Text className='text'>开始时间：{item.startTime}</Text>
                   </View>
                   <View className='itemRight'>
-                    <Image src={toDetail} className='toDetail'></Image>
+                    <Image src={toDetail} className='toDetail' onClick={()=> this.goToDetail(item.taskId,item.processInstanceId)}></Image>
                   </View>
                   <Image src={listViewBg} className='viewBgi'></Image>
                 </View>
