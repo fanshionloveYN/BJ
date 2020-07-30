@@ -31,7 +31,8 @@ export default class Index extends Component {
   componentDidHide () { }
 
   goToDetail (obj) {
-    tmsg.id = obj
+    let tmsg = {'id':obj}
+    Taro.setStorageSync('tmsg', tmsg)
     Taro.navigateTo({ url: `/pages/contractDetail/index` })
   }
 

@@ -26,6 +26,7 @@ export default class Index extends Component {
       _t: Date.parse(new Date())
     }).then(res => {
       Taro.setStorageSync('userInfo', res.data)
+      Taro.setStorageSync('accountInfo', {'username':'app001','password':'123456'})
       Taro.navigateBack({
         delta: 1 // 返回上一级页面。
       });

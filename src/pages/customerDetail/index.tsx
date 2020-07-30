@@ -29,7 +29,7 @@ export default class Index extends Component {
 
   getData() {
     let that = this
-    let id = tmsg.id
+    let id = JSON.parse(localStorage.getItem('tmsg')).data.id
     get('/admin-api/builder/data/reis_customer/'+id, {
       token: JSON.parse(localStorage.getItem('userInfo')).data.token
     }).then(res => {

@@ -29,7 +29,7 @@ export default class Index extends Component {
 
   getData() {
     let that = this
-    let id = tmsg.id
+    let id = JSON.parse(localStorage.getItem('tmsg')).data.id
     get('/admin-api/builder/data/reis_contract/'+id, {
       token: JSON.parse(localStorage.getItem('userInfo')).data.token
     }).then(res => {
@@ -56,8 +56,8 @@ export default class Index extends Component {
             <View className='info'>地址：{conjson.address}</View>
 	    <View className='info'>面积：{conjson.acreage}平方米</View>
 	    <View className='info'>年租金：{conjson.annual_rent}元</View>
-	    <View className='info'>单价：{conjson.conprice}</View>
-	    <View className='info'>期限：{conjson.contract_period}</View>
+	    {/*<View className='info'>单价：{conjson.conprice}元</View>
+	    <View className='info'>期限：{conjson.contract_period}个月</View>*/}
 	    <View className='info'>开始：{conjson.start_date}</View>
 	    <View className='info'>结束：{conjson.end_date}</View>
           </View>
@@ -72,7 +72,7 @@ export default class Index extends Component {
                 return(
                   <View className='contractInfo' key={index}>
                     <View className='name' style="border:0;margin-left:0.2rem;">{item.start_date} -- {item.end_date}</View>
-                    <View className='info'>金额：{item.fee}</View>
+                    <View className='info'>金额：{item.fee}元</View>
                     <View className='info'>类型：{item.recetype=="03"?"押金":"租金"}</View>
 		    <View className='info'>状态：{item.status=="03"?"已欠费":(item.status=="01"?"收费中":"待执行")}</View>
                     {

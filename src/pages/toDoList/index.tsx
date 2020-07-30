@@ -19,6 +19,7 @@ export default class Index extends Component {
   }
 
   componentWillMount () { 
+  	
 	this.getData()
   }
 
@@ -31,8 +32,8 @@ export default class Index extends Component {
   componentDidHide () { }
 
   goToDetail (taskId,processInstanceId) {
-    tmsg.taskId = taskId
-    tmsg.processInstanceId = processInstanceId
+    let tmsg = {'taskId':taskId,'processInstanceId':processInstanceId}
+    Taro.setStorageSync('tmsg', tmsg)
     Taro.navigateTo({ url: `/pages/toDoDetail/index`})
   }
 

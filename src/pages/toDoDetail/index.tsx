@@ -18,7 +18,6 @@ export default class Index extends Component {
     }
   }
   componentWillMount () { 
-        console.log('params',tmsg)
 	this.getData()
   }
 
@@ -32,8 +31,9 @@ export default class Index extends Component {
 
  getData() {
     let that = this
-    let taskId = tmsg.taskId
-    let processInstanceId = tmsg.processInstanceId
+    let taskId = JSON.parse(localStorage.getItem('tmsg')).data.taskId
+    let processInstanceId = JSON.parse(localStorage.getItem('tmsg')).data.processInstanceId
+
     get('/admin-api/builder/process/task/'+taskId, {
       token: JSON.parse(localStorage.getItem('userInfo')).data.token
     }).then(res => {
@@ -78,16 +78,26 @@ export default class Index extends Component {
 		    </View>
 	   }
 	  </View>
-	</View>
-
-	<View className='todoDetail'>
+	</View>	
+	<View className='todoDetail2'>
+	<View className='tdtitle'>任务办理</View>
           <View className='todoDetailView'>
                   <View className='todoInfo' >
                     <View className='taskname' style="border:0;margin-left:0.2rem;">当前步骤：{taskjson.taskName}</View>
-                    <View className='taskname' style="border:0;margin-left:0.2rem;">审核意见：</View>
+                    <View className='taskname' style="border:0;margin-left:0.2rem;">
+		    审核意见：&nbsp;&nbsp;
+		    <input type="checkbox" name="items" value="同意" />同意&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="items" value="不同意" />不同意
+		    </View>
+		    <textarea className='texta'></textarea>
                 </View>
 	  </View>
+	  <View className='bt_pass'>通过</View>
+	  <View className='bt_undo'>回退</View>
+	  <View className='bt_over'>终止</View>
 	</View>
+	<View className='spaceLine'></View>
+	<View className='todoDetail2'>
+	<View className='tdtitle'>流转详情</View>
 	<View className='todoDetailView'>
       {
             loglist.length > 0 && loglist.map((item, index) => {
@@ -104,7 +114,7 @@ export default class Index extends Component {
       }
       </View>
       </View>
-      
+      </View>
     )
   }
 }

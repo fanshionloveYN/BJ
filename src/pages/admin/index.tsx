@@ -32,7 +32,12 @@ export default class Index extends Component {
       this.setState({ userInfo: localStorage.getItem('userInfo')})
     }
   }
-
+  logout(){
+    if(confirm('是否确认退出?')){
+      localStorage.removeItem('userInfo')
+      Taro.navigateTo({ url: `/pages/my/index` })
+    }
+  }
 
   render () {
     const { userInfo } = this.state
@@ -43,7 +48,7 @@ export default class Index extends Component {
           <View className='companyName'>您好，{userName}</View>
           <View className='projectName'>您当前是登录状态</View>
           <View className='splitLine'></View>
-          <View className='signOut'>退出</View>
+          <View className='signOut' onClick={()=> this.logout()}>退出</View>
         </View> 
         <View className='spaceView'></View>
         <View className='spaceView2'></View>

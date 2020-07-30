@@ -37,6 +37,8 @@ export default class Index extends Component {
   getLoginStatus () {
     if (localStorage.getItem('userInfo')) {
       this.setState({ userInfo: localStorage.getItem('userInfo')})
+    }else{
+      this.setState({ userInfo: ''})
     }
   }
 
