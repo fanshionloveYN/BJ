@@ -14,7 +14,8 @@ export default class Index extends Component {
 
     this.state = {
       dataJson:[],
-      total:0
+      total:0,
+      searchValue: ''
     }
   }
 
@@ -38,6 +39,8 @@ export default class Index extends Component {
   }
 
   getData() {
+    console.log(this.state.searchValue)
+    // this.state.searchValue搜索值
     get('/admin-api/act/task/myToDoTaskPage', {
       page:1,
       token: JSON.parse(localStorage.getItem('userInfo')).data.token
@@ -47,38 +50,20 @@ export default class Index extends Component {
     })
   }
 
-  render () {
-    const { dataJson , total} = this.state
-    const json = [
-      {
-        type: '租赁合同审批',
-        title: '上海益丰大药房连锁有限公司@殷行路763号1楼',
-        createDate: '2020-07-06 17:31:15',
-        current: '桥升公司财务部',
-        beginDate: '2020-05-06 15:31:30'
-      },
-      {
-        type: '租赁合同审批',
-        title: '上海益丰大药房连锁有限公司@殷行路763号1楼',
-        createDate: '2020-07-06 17:31:15',
-        current: '桥升公司财务部',
-        beginDate: '2020-05-06 15:31:30'
-      },
-      {
-        type: '租赁合同审批',
-        title: '上海益丰大药房连锁有限公司@殷行路763号1楼',
-        createDate: '2020-07-06 17:31:15',
-        current: '桥升公司财务部',
-        beginDate: '2020-05-06 15:31:30'
-      }
-    ]
+  setSearchValue(e) {
+    this.setState({
+      searchValue: e.detail.value
+    })
+  }
 
+  render () {
+    const { dataJson , total, searchValue} = this.state
     return (
       <View className='indexPage'>
         <View className='searchView'>
           <View className='searchInput'>
-            <Input placeholder='请输入待办名称' className='searchInputControl' placeholder-class="place-holder"></Input>
-            <Image src={search} className='searchImg'></Image>
+            <Input placeholder='请输入待办名称' className='searchInputControl' placeholder-class="place-holder" value={searchValue} onChange={(e) => this.setSearchValue(e)}></Input>
+            <Image src={search} className='searchImg' onClick={()=> this.getData()}></Image>
           </View>
         </View>
         <View className='listView'>

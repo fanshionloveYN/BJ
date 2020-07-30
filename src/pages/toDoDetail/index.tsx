@@ -83,10 +83,11 @@ export default class Index extends Component {
 	<View className='tdtitle'>任务办理</View>
           <View className='todoDetailView'>
                   <View className='todoInfo' >
-                    <View className='taskname' style="border:0;margin-left:0.2rem;">当前步骤：{taskjson.taskName}</View>
-                    <View className='taskname' style="border:0;margin-left:0.2rem;">
-		    审核意见：&nbsp;&nbsp;
-		    <input type="checkbox" name="items" value="同意" />同意&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="items" value="不同意" />不同意
+                    <View className='taskname'>当前步骤：{taskjson.taskName}</View>
+                    <View className='taskname'>
+		                  审核意见：
+		                  <input type="radio" name="items" value="同意" className="radiobtn" />同意
+                      <input type="radio" name="items" value="不同意" className="radiobtn" />不同意
 		    </View>
 		    <textarea className='texta'></textarea>
                 </View>
