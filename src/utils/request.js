@@ -33,10 +33,48 @@ export const request = (url = '', data = {}, header = DefaultOptions.header, met
   }).catch(err => {
     return Promise.reject({ errno: 902, errmsg: '网络请求错误', data: err })
   }).then(res => {
-    console.log(res)
+    //console.log(res)
     if (res.statusCode == '200') {
       if (res.data.code == 0) {
         return res.data
+      } else if (res.data.code == 401) {
+        Taro.navigateTo({
+          url: '/pages/login/index'
+        })
+      } else {
+        return Promise.reject(res.data)
+      }
+    } else {
+      return Promise.reject({ errno: 903, errmsg: '网络请求错误:' + res.statusCode, data: res })
+    }
+  })
+}
+
+ export const request2 = (url = '', data = {}, header = {'content-type': 'application/x-www-form-urlencoded'}, method = DefaultOptions.method, dataType = 'json') => {
+  
+  if (url == null || url == '' || typeof url != 'string') {
+    return Promise.reject({ errno: 901, errmsg: '请求地址错误', data: url })
+  }
+  // alert(url)
+  return Taro.request({
+    url,
+    data,
+    header,
+    method,
+    dataType
+  }).catch(err => {
+    return Promise.reject({ errno: 902, errmsg: '网络请求错误', data: err })
+  }).then(res => {
+    //console.log(res)
+    if (res.statusCode == '200') {
+      if (res.data.code == 0) {
+        return res.data
+      } else if (res.data.code == 10034) {
+        return res.data
+      } else if (res.data.code == 401) {
+        Taro.navigateTo({
+          url: '/pages/login/index'
+        })
       } else {
         return Promise.reject(res.data)
       }
@@ -53,6 +91,15 @@ export const request = (url = '', data = {}, header = DefaultOptions.header, met
 export const post = (url, data) => {
   return request(url, data)
 }
+
+ /**
+ * post 请求
+ * @param {} url 
+ * @param {*} data 
+ */
+export const post2 = (url, data) => {
+  return request2(url, data)
+}
 /**
  * get请求
  * @param {} url 
@@ -61,6 +108,8 @@ export const post = (url, data) => {
 export const get = (url, data) => {
   return request(url, data, null, 'GET')
 }
+
+
 
 /**
  * @param {} chain 
