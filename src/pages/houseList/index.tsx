@@ -21,7 +21,7 @@ export default class Index extends Component {
 	this.getData()
   }
 
-  componentDidMount () { this.init() }
+  componentDidMount () {}
 
   componentWillUnmount () { }
 
@@ -35,14 +35,17 @@ export default class Index extends Component {
   getData() {
     get('/admin-api/builder/data/page/reis_house?page=undefined&longitude.ge=121.50249194165039&longitude.le=121.54197405834961&latitude.ge=31.27878811611185&latitude.le=31.33276215359025',
     {
-	limit: 50,
+	limit: 100,
 	token: JSON.parse(localStorage.getItem('userInfo')).data.token
     }).then(res => {
 	this.setState({ dataJson: res.data.list,total:res.data.total})
+	this.init()
     })
   }
 
 init() {
+	const { dataJson , total} = this.state
+        console.log('dataJson',dataJson)
 	var center = new qq.maps.LatLng(31.27878811611185,121.50249194165039);
 
 	var map = new qq.maps.Map(document.getElementById("container_mine"), {
@@ -52,17 +55,30 @@ init() {
 		draggable: true,
 		disableDefaultUI: true 
 	});
-	
-	var marker = new qq.maps.Marker({
-		position: center,
-		map: map
-	});
+	for(var i=0;i<dataJson.length;i++){
+		var address = dataJson[i].address;
+		var vpoint = new qq.maps.LatLng(dataJson[i].latitude,dataJson[i].longitude);
+		var marker = new qq.maps.Marker({
+			position: vpoint,
+			map: map
+		});
+		/**
+		//添加到提示窗
+		var info = new qq.maps.InfoWindow({
+			map: map
+		});
+		//获取标记的点击事件
+		qq.maps.event.addListener(marker, 'click', function() {
+			info.open(); 
+			info.setContent('<div style="text-align:center;white-space:nowrap;'+
+			'margin:10px;">'+address+'</div>');
+			info.setPosition(marker); 
+		});
+		**/
+	}
 }
 
   render () {
-	const { dataJson , total} = this.state
-        console.log('dataJson',dataJson)
-
     return (
       <View id='container_mine' className='map'></View>
     )

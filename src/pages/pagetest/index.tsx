@@ -15,8 +15,8 @@ export default class Index extends Component {
     this.state = {
       dataJson:[],
       total:0,
-      searchValue: '',
       pagenum:1,
+      searchValue: '',
       hasNextPage:true,
       startX:'',
       startY:''
@@ -24,25 +24,27 @@ export default class Index extends Component {
   }
 
   componentWillMount () { 
-    this.getData()
+	this.getData()
   }
 
   componentDidMount () { }
 
   componentWillUnmount () { }
 
-  componentDidShow () { }
+  componentDidShow () {
+	
+  }
 
   componentDidHide () { }
 
   goToDetail (obj) {
     let tmsg = {'id':obj}
     Taro.setStorageSync('tmsg', tmsg)
-    Taro.navigateTo({ url: `/pages/contractDetail/index` })
+    Taro.navigateTo({ url: `/pages/propertyDetail/index`})
   }
 
   getData() {
-    get('/admin-api/builder/data/page/reis_contract?status_code=02&address.like='+this.state.searchValue, {
+    get('/admin-api/builder/data/page/reis_house?address.like='+this.state.searchValue, {
       page:1,
       limit:20,
       token: JSON.parse(localStorage.getItem('userInfo')).data.token
@@ -57,9 +59,10 @@ export default class Index extends Component {
     })
     this.getData()
   }
+
   getNextPageData() {
     let { dataJson, pagenum, hasNextPage} = this.state;
-    get('/admin-api/builder/data/page/reis_contract?status_code=02&address.like='+this.state.searchValue, {
+    get('/admin-api/builder/data/page/reis_house?address.like='+this.state.searchValue, {
       page:pagenum+1,
       limit:20,
       token: JSON.parse(localStorage.getItem('userInfo')).data.token
@@ -77,7 +80,7 @@ export default class Index extends Component {
     const scrollHeight = document.getElementsByClassName('scvw')[0].scrollHeight;
     const clientHeight = document.documentElement.clientHeight;
     if(hasNextPage && scrollHeight - clientHeight - scrollTop < 100){
-      console.log('触底，加载下一页')
+      alert('触底，加载下一页')
       this.getNextPageData()
     }
   }
@@ -146,19 +149,21 @@ export default class Index extends Component {
 
     return result;
   };
+
   render () {
     const { dataJson , total, searchValue} = this.state
-    //console.log('ja::::',dataJson.length)
     
     return (
+ 
+                
       <View className='propertyListPage'>
         <View className='searchView'>
           <View className='searchInput'>
-            <Input placeholder='请输入合同地址' className='searchInputControl' placeholder-class="place-holder" value={searchValue} onChange={(e) => this.setSearchValue(e)}></Input>
+            <Input placeholder='请输入资产名称' className='searchInputControl' placeholder-class="place-holder" value={searchValue} onChange={(e) => this.setSearchValue(e)}></Input>
             <Image src={search} className='searchImg'></Image>
           </View>
         </View>
-	<ScrollView className='scvw' onTouchEnd={this.touchEnd.bind(this)}
+	   <ScrollView className='scvw' onTouchEnd={this.touchEnd.bind(this)}
                     onTouchStart={this.touchStart.bind(this)}
                     scrollWithAnimation>
         <View className='listView'>
@@ -167,13 +172,9 @@ export default class Index extends Component {
               return (
                 <View className='itemView' key={index}>
                   <View className='itemLeft'>
-                    <Text className='title'>编号：{item.contract_code}</Text>
-                    <Text className='text'>客户：{item.customer_name}</Text>
-                    <Text className='text'>地址：{item.address}</Text>
-		    <Text className='text'>面积：{item.acreage}平方米</Text>
-		    <Text className='text'>年租金：{item.annual_rent}元</Text>
-		    <Text className='text'>开始：{item.start_date}</Text>
-		    <Text className='text'>结束：{item.end_date}</Text>
+                    <Text className='title'>地址：{item.address}</Text>
+                    <Text className='text'>编号：{item.house_code}</Text>
+                    <Text className='text'>面积：{item.acreage}平方米</Text>
                   </View>
                   <View className='itemRight'>
                     <Image src={toDetail} className='toDetail' onClick={()=> this.goToDetail(item.id)}></Image>
@@ -184,8 +185,9 @@ export default class Index extends Component {
             })
           }
         </View>
-	</ScrollView>
+	      </ScrollView>
       </View>
+
     )
   }
 }

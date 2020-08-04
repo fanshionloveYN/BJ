@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { View, Text, Image, Input } from '@tarojs/components'
 import Taro from '@tarojs/taro'
+import { AtTextarea } from 'taro-ui'
 import search from '../../images/search.png'
 import toDetail from '../../images/toDetail.png'
-import { get } from '../../utils/request'
+import { get, post2 } from '../../utils/request'
 import './index.less'
 
 export default class Index extends Component {
@@ -14,7 +15,10 @@ export default class Index extends Component {
     this.state = {
       taskjson:'',
       infojson:'',
-      loglist:''
+      loglist:'',
+      tcontent:'',
+      tc:false,
+      tlength:100
     }
   }
   componentWillMount () { 
@@ -52,11 +56,80 @@ export default class Index extends Component {
 	that.setState({ loglist: res.data})
     })
   }
+setContentValue(){
+	let that = this
+	let inputs = document.getElementsByName('items');
+	for (var i = 0; i < inputs .length; i++) {
+	if (inputs [i].checked) {
+		that.setState({ tcontent: inputs[i].value})
+	}
+	}
+}
 
+syncContentValue(e){
+	this.setState({ tcontent: e})
+}
+
+pass(){
+	let that = this
+	if(that.state.tcontent == '' || that.state.tcontent.length < 1){
+		alert('请填写意见')
+	}else{
+	    let taskId = JSON.parse(localStorage.getItem('tmsg')).data.taskId
+	    post2('/admin-api/act/task/complete?&token='+JSON.parse(localStorage.getItem('userInfo')).data.token, {
+	      taskId: taskId,
+	      comment: that.state.tcontent
+	    },).then(res => {
+	      console.log(res)
+	      if(res.msg=='success'){
+		Taro.navigateTo({ url: `/pages/toDoList/index` })
+	      }
+	    })
+	}
+	
+}
+undo(){
+	let that = this
+	if(that.state.tcontent == '' || that.state.tcontent.length < 1){
+		alert('请填写意见')
+	}else{
+	    let taskId = JSON.parse(localStorage.getItem('tmsg')).data.taskId
+	    post2('/admin-api/act/task/backPreviousTask?&token='+JSON.parse(localStorage.getItem('userInfo')).data.token, {
+	      taskId: taskId,
+	      comment: that.state.tcontent
+	    },).then(res => {
+	      console.log(res)
+	      if(res.msg=='success'){
+		Taro.navigateTo({ url: `/pages/toDoList/index` })
+	      }else{
+		alert(res.msg)
+	      }
+	    })
+	}
+}
+over(){
+	let that = this
+	if(that.state.tcontent == '' || that.state.tcontent.length < 1){
+		alert('请填写意见')
+	}else{
+	    let taskId = JSON.parse(localStorage.getItem('tmsg')).data.taskId
+	    post2('/admin-api/act/task/endProcess?&token='+JSON.parse(localStorage.getItem('userInfo')).data.token, {
+	      taskId: taskId,
+	      comment: that.state.tcontent
+	    },).then(res => {
+	      console.log(res)
+	      if(res.msg=='success'){
+		//Taro.navigateBack({
+		//  delta: 1 // 返回上一级页面。
+	        //});
+		Taro.navigateTo({ url: `/pages/toDoList/index` })
+	      }
+	    })
+	}
+}
   render () {
     const { taskjson , infojson ,loglist} = this.state
-    console.log('taskjson::::',taskjson)
-    console.log('loglist::::',loglist)
+
     return (
        <View className='todoDetailPage'>
         <View className='spaceLine'></View>
@@ -86,19 +159,22 @@ export default class Index extends Component {
                     <View className='taskname'>当前步骤：{taskjson.taskName}</View>
                     <View className='taskname'>
 		                  审核意见：
-		                  <input type="radio" name="items" value="同意" className="radiobtn" />同意
-                      <input type="radio" name="items" value="不同意" className="radiobtn" />不同意
+		                  <input type="radio" name="items" value="同意" className="radiobtn" onClick={() => this.setContentValue()} />同意
+                      <input type="radio" name="items" value="不同意" className="radiobtn" onClick={() => this.setContentValue()} />不同意
 		    </View>
-		    <textarea className='texta'></textarea>
+		    <View className='texta'>
+		    <AtTextarea  height={50} count={false} placeholder='补充意见说明' value={this.state.tcontent} onChange={(e) => this.syncContentValue(e)} />
+		    </View>
                 </View>
 	  </View>
-	  <View className='bt_pass'>通过</View>
-	  <View className='bt_undo'>回退</View>
-	  <View className='bt_over'>终止</View>
+	  <View className='bt_pass' onClick={() => this.pass()} >通过</View>
+	  <View className='bt_undo' onClick={() => this.undo()} >回退</View>
+	  <View className='bt_over' onClick={() => this.over()} >终止</View>
 	</View>
 	<View className='spaceLine'></View>
 	<View className='todoDetail2'>
 	<View className='tdtitle'>流转详情</View>
+	{ loglist.length > 0 &&
 	<View className='todoDetailView'>
       {
             loglist.length > 0 && loglist.map((item, index) => {
@@ -114,6 +190,7 @@ export default class Index extends Component {
             })
       }
       </View>
+      }
       </View>
       </View>
     )

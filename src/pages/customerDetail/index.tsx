@@ -67,8 +67,8 @@ export default class Index extends Component {
 	    {
               conlist.length > 0 && conlist.map((item, index) => {
                 return(
-                  <View className='customerInfo' key={index}>
-                  <View className='name' style="border:0;padding-left:0">编号：{item.contract_code}</View>
+                  <View className='customerInfo2' key={index}>
+                  <View className='name' style="border:0">编号：{item.contract_code}</View>
               　　<View className='info'>客户：{item.customer_name}</View>
               　　<View className='info'>面积：{item.acreage}平方米</View>
               　　<View className='info'>年租金：{item.annual_rent}元</View>

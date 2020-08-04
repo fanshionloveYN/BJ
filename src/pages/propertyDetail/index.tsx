@@ -17,7 +17,6 @@ export default class Index extends Component {
     }
   }
   componentWillMount () { 
-        console.log('params',tmsg)
 	this.getData()
   }
 
