@@ -24,20 +24,20 @@ export default class Index extends Component {
   }
 
   componentWillMount () { 
-	if(localStorage.getItem('userInfo') == null){
-	    Taro.navigateTo({
-                url: '/pages/login/index'
-            })
-	}else{
-	try{
-	    JSON.parse(localStorage.getItem('userInfo')).data.token
-	}catch{
-	    Taro.navigateTo({
-                url: '/pages/login/index'
-            })
-	}
-	    this.getData()
-	}
+    if(localStorage.getItem('userInfo') == null){
+      Taro.navigateTo({
+        url: '/pages/login/index'
+      })
+    }else{
+      try{
+        JSON.parse(localStorage.getItem('userInfo')).data.token
+      }catch{
+        Taro.navigateTo({
+          url: '/pages/login/index'
+        })
+      }
+      this.getData()
+    }
   }
 
   componentDidMount () { }
@@ -45,7 +45,7 @@ export default class Index extends Component {
   componentWillUnmount () { }
 
   componentDidShow () {
-	
+    this.getData()
   }
 
   componentDidHide () { }

@@ -28,7 +28,7 @@ export default class Index extends Component {
 
   render () {
     return (
-      <View className='indexPage'>
+      <View className='moneyPage'>
         <View className='mainView'>
           <View className='layoutView'>
             <Image src={bgImg_blue} className='mainImg'></Image>

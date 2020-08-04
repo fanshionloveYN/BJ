@@ -58,7 +58,7 @@ export default class Index extends Component {
   render () {
     const { dataJson , total, searchValue} = this.state
     return (
-      <View className='indexPage'>
+      <View className='toDoListPage'>
         {/*<View className='searchView'>
           <View className='searchInput'>
             <Input placeholder='请输入待办名称' className='searchInputControl' placeholder-class="place-holder" value={searchValue} onChange={(e) => this.setSearchValue(e)}></Input>

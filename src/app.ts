@@ -3,7 +3,10 @@ import './app.less'
 
 class App extends Component {
 
-  componentDidMount () {}
+  componentDidMount () {
+    var obj = document.getElementById("app");
+    obj.firstElementChild.id = "bigDiv"
+  }
 
   componentDidShow () {}
 
